@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file contains an xml description of a font, and will be read by the XNA
+Framework Content Pipeline. Follow the comments to customize the appearance
+of the font in your game, and to change the characters which are available to draw
+with.
+-->
+<XnaContent xmlns:Graphics="Microsoft.Xna.Framework.Content.Pipeline.Graphics">
+  <Asset Type="Graphics:FontDescription">
+
+    <!--
+    Modify this string to change the font that will be imported.
+    -->
+    <FontName>华文隶书</FontName>
+
+    <!--
+    Size is a float value, measured in points. Modify this value to change
+    the size of the font.
+    -->
+    <Size>18</Size>
+
+    <!--
+    Spacing is a float value, measured in pixels. Modify this value to change
+    the amount of spacing in between characters.
+    -->
+    <Spacing>0</Spacing>
+
+    <!--
+    UseKerning controls the layout of the font. If this value is true, kerning information
+    will be used when placing characters.
+    -->
+    <UseKerning>true</UseKerning>
+
+    <!--
+    Style controls the style of the font. Valid entries are "Regular", "Bold", "Italic",
+    and "Bold, Italic", and are case sensitive.
+    -->
+    <Style>Bold</Style>
+
+    <!--
+    If you uncomment this line, the default character will be substituted if you draw
+    or measure text that contains characters which were not included in the font.
+    -->
+    <!-- <DefaultCharacter>*</DefaultCharacter> -->
+
+    <!--
+    CharacterRegions control what letters are available in the font. Every
+    character from Start to End will be built and made available for drawing. The
+    default range is from 32, (ASCII space), to 126, ('~'), covering the basic Latin
+    character set. The characters are ordered according to the Unicode standard.
+    See the documentation for more information.
+    -->
+    <CharacterRegions>
+      <CharacterRegion>
+        <Start>&#32;</Start>
+        <End>&#126;</End>
+      </CharacterRegion>
+
+      <CharacterRegion>
+        <Start>&#28216;</Start>
+        <End>&#28216;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#25103;</Start>
+        <End>&#25103;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#21517;</Start>
+        <End>&#21517;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#31216;</Start>
+        <End>&#31216;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#65306;</Start>
+        <End>&#65306;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#36873;</Start>
+        <End>&#36873;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#32769;</Start>
+        <End>&#32769;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#23110;</Start>
+        <End>&#23110;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#92;</Start>
+        <End>&#92;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#110;</Start>
+        <End>&#110;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#92;</Start>
+        <End>&#92;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#114;</Start>
+        <End>&#114;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#20316;</Start>
+        <End>&#20316;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#32773;</Start>
+        <End>&#32773;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#65306;</Start>
+        <End>&#65306;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#92;</Start>
+        <End>&#92;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#110;</Start>
+        <End>&#110;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#92;</Start>
+        <End>&#92;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#114;</Start>
+        <End>&#114;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#99;</Start>
+        <End>&#99;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#104;</Start>
+        <End>&#104;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#101;</Start>
+        <End>&#101;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#110;</Start>
+        <End>&#110;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#103;</Start>
+        <End>&#103;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#99;</Start>
+        <End>&#99;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#111;</Start>
+        <End>&#111;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#110;</Start>
+        <End>&#110;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#103;</Start>
+        <End>&#103;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#92;</Start>
+        <End>&#92;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#110;</Start>
+        <End>&#110;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#92;</Start>
+        <End>&#92;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#114;</Start>
+        <End>&#114;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#29256;</Start>
+        <End>&#29256;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#26435;</Start>
+        <End>&#26435;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#25152;</Start>
+        <End>&#25152;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#26377;</Start>
+        <End>&#26377;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#65306;</Start>
+        <End>&#65306;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#119;</Start>
+        <End>&#119;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#119;</Start>
+        <End>&#119;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#119;</Start>
+        <End>&#119;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#46;</Start>
+        <End>&#46;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#120;</Start>
+        <End>&#120;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#110;</Start>
+        <End>&#110;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#97;</Start>
+        <End>&#97;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#100;</Start>
+        <End>&#100;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#101;</Start>
+        <End>&#101;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#118;</Start>
+        <End>&#118;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#101;</Start>
+        <End>&#101;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#108;</Start>
+        <End>&#108;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#111;</Start>
+        <End>&#111;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#112;</Start>
+        <End>&#112;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#46;</Start>
+        <End>&#46;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#99;</Start>
+        <End>&#99;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#111;</Start>
+        <End>&#111;</End>
+      </CharacterRegion>
+      <CharacterRegion>
+        <Start>&#109;</Start>
+        <End>&#109;</End>
+      </CharacterRegion>
+
+
+    </CharacterRegions>
+  </Asset>
+</XnaContent>
