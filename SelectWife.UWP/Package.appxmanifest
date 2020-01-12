@@ -15,8 +15,8 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SelectWife.UWP.App">
-      <uap:VisualElements DisplayName="选老婆" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="SelectWife.UWP" BackgroundColor="#464646">
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      <uap:VisualElements DisplayName="选老婆" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="SelectWife.UWP" BackgroundColor="#464646">
+        <uap:SplashScreen Image="Assets\Wide310x150Logo.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
