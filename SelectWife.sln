@@ -11,9 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectWife.UWP", "SelectWif
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SelectWife.Shared", "SelectWife.Shared\SelectWife.Shared.shproj", "{A0CDBD0E-3A41-42B7-9425-A838BC2C7383}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectWife.Windows", "SelectWife.Windows\SelectWife.Windows.csproj", "{82AD8CFC-219D-451F-92F8-9F6CA1F7C231}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		SelectWife.Shared\SelectWife.Shared.projitems*{28824696-840b-40a8-b13c-34905b984472}*SharedItemsImports = 4
+		SelectWife.Shared\SelectWife.Shared.projitems*{82ad8cfc-219d-451f-92f8-9f6ca1f7c231}*SharedItemsImports = 4
 		SelectWife.Shared\SelectWife.Shared.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +60,14 @@ Global
 		{28824696-840B-40A8-B13C-34905B984472}.Release|x86.ActiveCfg = Release|x86
 		{28824696-840B-40A8-B13C-34905B984472}.Release|x86.Build.0 = Release|x86
 		{28824696-840B-40A8-B13C-34905B984472}.Release|x86.Deploy.0 = Release|x86
+		{82AD8CFC-219D-451F-92F8-9F6CA1F7C231}.Debug|ARM.ActiveCfg = Debug|x86
+		{82AD8CFC-219D-451F-92F8-9F6CA1F7C231}.Debug|x64.ActiveCfg = Debug|x86
+		{82AD8CFC-219D-451F-92F8-9F6CA1F7C231}.Debug|x86.ActiveCfg = Debug|x86
+		{82AD8CFC-219D-451F-92F8-9F6CA1F7C231}.Debug|x86.Build.0 = Debug|x86
+		{82AD8CFC-219D-451F-92F8-9F6CA1F7C231}.Release|ARM.ActiveCfg = Release|x86
+		{82AD8CFC-219D-451F-92F8-9F6CA1F7C231}.Release|x64.ActiveCfg = Release|x86
+		{82AD8CFC-219D-451F-92F8-9F6CA1F7C231}.Release|x86.ActiveCfg = Release|x86
+		{82AD8CFC-219D-451F-92F8-9F6CA1F7C231}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
