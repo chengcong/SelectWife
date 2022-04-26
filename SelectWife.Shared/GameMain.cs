@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Windows.System.Profile;
 
 namespace SelectWife
 {
@@ -19,7 +20,7 @@ namespace SelectWife
         SpriteBatch spriteBatch;
 
         //之前点击的鼠标状态
-        MouseState prevMouseState;
+        //MouseState prevMouseState;
 
         //背景音乐
         Song music;
@@ -109,10 +110,18 @@ namespace SelectWife
             graphics.PreferredBackBufferHeight = GameHeight;
             //游戏窗口标题
             this.Window.Title = "选老婆";
-            IsMouseVisible = false;
             Microsoft.Xna.Framework.Input.Touch.TouchPanel.EnableMouseTouchPoint = true;
+            if (AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Mobile")
+            {
+                IsMouseVisible = false;
+                graphics.IsFullScreen = true;
+            }
+            else
+            {
+                IsMouseVisible = true;
+            }
 
-            graphics.IsFullScreen = true;
+           
 
         }
 
