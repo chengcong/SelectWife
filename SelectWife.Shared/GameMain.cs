@@ -110,6 +110,9 @@ namespace SelectWife
             //游戏窗口标题
             this.Window.Title = "选老婆";
             IsMouseVisible = false;
+            Microsoft.Xna.Framework.Input.Touch.TouchPanel.EnableMouseTouchPoint = true;
+
+            graphics.IsFullScreen = true;
 
         }
 
@@ -122,10 +125,20 @@ namespace SelectWife
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            //ScalingClever.ResolutionScaling.Initialize(this, new Point(480, 800));
             base.Initialize();
         }
-
+        protected override bool BeginDraw()
+        {
+            ScalingClever.ResolutionScaling.Initialize(this,new Point(480, 800));
+            ScalingClever.ResolutionScaling.BeginDraw(this);
+            return base.BeginDraw();
+        }
+        protected override void EndDraw()
+        {
+            ScalingClever.ResolutionScaling.EndDraw(this, spriteBatch);
+            base.EndDraw();
+        }
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
@@ -191,7 +204,7 @@ namespace SelectWife
             wifeTextureList = new List<Texture2D>();
             for (int i = 1; i < 12; i++)
             {
-                Texture2D wifeTexture= Content.Load<Texture2D>("Wife" + i);
+                Texture2D wifeTexture = Content.Load<Texture2D>("Wife" + i);
 
                 wifeTextureList.Add(wifeTexture);
             }
@@ -203,18 +216,22 @@ namespace SelectWife
             marryHerRectangle = new Rectangle((GameWidth - marryHerTexture2D.Bounds.Width) / 2, 300, marryHerTexture2D.Bounds.Width, marryHerTexture2D.Bounds.Height);
 
             //加载双喜图片纹理和初始化位置大小
-            doubleHappinessTexture2D= Content.Load<Texture2D>("DoubleHappiness");
+            doubleHappinessTexture2D = Content.Load<Texture2D>("DoubleHappiness");
             doubleHappinessRectangle = new Rectangle((GameWidth - doubleHappinessTexture2D.Bounds.Width) / 2, 330, doubleHappinessTexture2D.Bounds.Width, doubleHappinessTexture2D.Bounds.Height);
 
             //加载离婚图片纹理和初始化位置大小
             divorceTexture2D = Content.Load<Texture2D>("Divorce");
-            divorceRectangle= new Rectangle(50, 640, divorceTexture2D.Bounds.Width, divorceTexture2D.Bounds.Height);
+            divorceRectangle = new Rectangle(50, 640, divorceTexture2D.Bounds.Width, divorceTexture2D.Bounds.Height);
             //加载主菜单图片纹理和初始化位置大小
             mainMenuTexture2D = Content.Load<Texture2D>("MainMenu");
-            mainMenuRectangle= new Rectangle(280, 640, mainMenuTexture2D.Bounds.Width, mainMenuTexture2D.Bounds.Height);
+            mainMenuRectangle = new Rectangle(280, 640, mainMenuTexture2D.Bounds.Width, mainMenuTexture2D.Bounds.Height);
 
             //加载结婚进行曲
             weddingMarch = Content.Load<Song>("WeddingMarch");
+
+
+
+            ScalingClever.ResolutionScaling.LoadContent(this, new Point(480, 800));
         }
 
         /// <summary>
@@ -239,174 +256,372 @@ namespace SelectWife
 
             // TODO: Add your update logic here
 
-            //获取当前鼠标状态
-            MouseState mouseState = Mouse.GetState();
-            //修改自定义鼠标位置的X，Y轴坐标为鼠标当前X,Y位置
-            mouseCursorRectangle.X = mouseState.X;
-            mouseCursorRectangle.Y = mouseState.Y;
 
-            //判断当前场景是否是主菜单
-            if (currentScence == GameScence.MainMenu)
+
+            var touches = Microsoft.Xna.Framework.Input.Touch.TouchPanel.GetState();
+           
+            foreach (var touch in touches)
             {
-                //判断是否点击了关于按钮
-                if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && aboutRectangle.Contains(mouseState.X, mouseState.Y))
+              
+                if (touch.State != Microsoft.Xna.Framework.Input.Touch.TouchLocationState.Released)
                 {
-                    //将当前场景切换关于场景
-                    currentScence = GameScence.About;
-                    //按钮点击音效
-                    if(!isMuted)
+
+                    System.Diagnostics.Debug.WriteLine(touch.State.ToString());
+
+
+                    var postion = ScalingClever.ResolutionScaling.Position(touch.Position);
+
+                    var X = ScalingClever.ResolutionScaling.X(touch.Position.X);
+
+                    var Y = ScalingClever.ResolutionScaling.Y(touch.Position.Y);
+
+                    //修改自定义触摸位置的X，Y轴坐标为鼠标当前X,Y位置
+                    mouseCursorRectangle.X = (int)X;
+                    mouseCursorRectangle.Y = (int)Y;
+
+                    //判断当前场景是否是主菜单
+                    if (currentScence == GameScence.MainMenu)
                     {
-                        click.Play();
-                    }
-                }
-                //判断是否点击关闭音效音乐按钮
-                if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && soundOnRectangle.Contains(mouseState.X, mouseState.Y))
-                {
-                    isMuted =! isMuted;
-                    MediaPlayer.IsMuted = isMuted;
-                    //按钮点击音效
-                    if (!isMuted)
-                    {
-                        click.Play();
-                    }
-                }
-                //判断是否点击了开始游戏按钮
-                if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && playNormalRectangle.Contains(mouseState.X, mouseState.Y))
-                {
-                    //跳转到游戏场景
-                    currentScence = GameScence.GamePlaying;
-
-                    starting = true;
-                    //按钮点击音效
-                    if (!isMuted)
-                    {
-                        click.Play();
-                    }
-
-
-                }
-                
-            }
-
-            //判断当前场景是否是游戏场景
-            else if (currentScence == GameScence.GamePlaying)
-            {
-                //判断是否点击了关于按钮
-                if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && backRectangle.Contains(mouseState.X, mouseState.Y))
-                {
-                    //将当前场景切换到主菜单
-                    currentScence = GameScence.MainMenu;
-                    //按钮点击音效
-                    if (!isMuted)
-                    {
-                        click.Play();
-                    }
-
-                }
-
-                //判断是否点击了选老婆按钮
-                if (mouseState!=prevMouseState&& mouseState.LeftButton != ButtonState.Released && marryHerRectangle.Contains(mouseState.X, mouseState.Y))
-                {
-                    //停止切换图片
-                    starting = false;
-                    //切换到游戏结束页面
-                    currentScence = GameScence.GameOver;
-                    if (!isMuted)
-                    {
-                        //停止之前的游戏音乐
-                        MediaPlayer.Stop();
-                        //播放结婚进行曲
-                        MediaPlayer.Play(weddingMarch);
-                    }
-                    //按钮点击音效
-                    if (!isMuted)
-                    {
-                        click.Play();
-                    }
-
-                }
-
-                if (starting)
-                {
-                    timeLastFrame = timeLastFrame + gameTime.ElapsedGameTime.Milliseconds;//图片切换后经过的时间（毫秒）
-                    if (timeLastFrame > timePerFame)
-                    {
-                        timeLastFrame = timeLastFrame - timePerFame;//将图片切换后经过的时间恢复到小于每秒切换时间，保证下面代码执行一次
-                        if (currentFrame >= wifeTextureList.Count - 1)
+                        //判断是否点击了关于按钮
+                        if ((aboutRectangle.Contains(mouseCursorRectangle.X, mouseCursorRectangle.Y)))
                         {
-                            currentFrame = 0;
+                            //将当前场景切换关于场景
+                            currentScence = GameScence.About;
+                            //按钮点击音效
+                            if (!isMuted)
+                            {
+                                click.Play();
+                            }
                         }
-                        else
+                        //判断是否点击关闭音效音乐按钮
+                        if ( soundOnRectangle.Contains(mouseCursorRectangle.X, mouseCursorRectangle.Y))
                         {
-                            currentFrame += 1;
+                            isMuted = !isMuted;
+                            MediaPlayer.IsMuted = isMuted;
+                            //按钮点击音效
+                            if (!isMuted)
+                            {
+                                click.Play();
+                            }
                         }
+                        //判断是否点击了开始游戏按钮
+                        if ( playNormalRectangle.Contains(mouseCursorRectangle.X, mouseCursorRectangle.Y))
+                        {
+                            //跳转到游戏场景
+                            currentScence = GameScence.GamePlaying;
+
+                            starting = true;
+                            //按钮点击音效
+                            if (!isMuted)
+                            {
+             
+                                click.Play();
+                            }
+
+
+                        }
+
                     }
-                }
 
-                }
-
-            //判断当前场景是否是关于
-            else if(currentScence == GameScence.About)
-            {
-                //判断是否点击了关于按钮
-                if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && backRectangle.Contains(mouseState.X, mouseState.Y))
-                {
-                    //将当前场景切换到主菜单
-                    currentScence = GameScence.MainMenu;
-                    //按钮点击音效
-                    if (!isMuted)
+                    //判断当前场景是否是游戏场景
+                    else if (currentScence == GameScence.GamePlaying)
                     {
-                        click.Play();
+                        //判断是否点击了关于按钮
+                        if (backRectangle.Contains(mouseCursorRectangle.X, mouseCursorRectangle.Y))
+                        {
+                            //将当前场景切换到主菜单
+                            currentScence = GameScence.MainMenu;
+                            //按钮点击音效
+                            if (!isMuted)
+                            {
+                                click.Play();
+                            }
+
+                        }
+
+                        //判断是否点击了选老婆按钮
+                        if (marryHerRectangle.Contains(mouseCursorRectangle.X, mouseCursorRectangle.Y))
+                        {
+                            //停止切换图片
+                            starting = false;
+                            //切换到游戏结束页面
+                            currentScence = GameScence.GameOver;
+                            if (!isMuted)
+                            {
+                                //停止之前的游戏音乐
+                                MediaPlayer.Stop();
+                                //播放结婚进行曲
+                                MediaPlayer.Play(weddingMarch);
+                            }
+                            //按钮点击音效
+                            if (!isMuted)
+                            {
+                                click.Play();
+                            }
+
+                        }
+
+                       
+
                     }
+
+                    //判断当前场景是否是关于
+                    else if (currentScence == GameScence.About)
+                    {
+                        //判断是否点击了关于按钮
+                        if ( backRectangle.Contains(mouseCursorRectangle.X, mouseCursorRectangle.Y))
+                        {
+                            //将当前场景切换到主菜单
+                            currentScence = GameScence.MainMenu;
+                            //按钮点击音效
+                            if (!isMuted)
+                            {
+                                click.Play();
+                            }
+                        }
+
+                    }
+                    else if (currentScence == GameScence.GameOver)
+                    {
+
+                        //判断是否点击了离婚
+                        if ( divorceRectangle.Contains(mouseCursorRectangle.X, mouseCursorRectangle.Y))
+                        {
+                            //停止切换图片
+                            starting = true;
+                            //切换到游戏页面
+                            currentScence = GameScence.GamePlaying;
+                            if (!isMuted)
+                            {
+                                //停止之前的结婚进行曲
+                                MediaPlayer.Stop();
+                                //播放结婚进行曲
+                                MediaPlayer.Play(music);
+                            }
+                            //按钮点击音效
+                            if (!isMuted)
+                            {
+                                click.Play();
+                            }
+                        }
+                        //判断是否点击了主菜单
+                        if ( mainMenuRectangle.Contains(mouseCursorRectangle.X, mouseCursorRectangle.Y))
+                        {
+                            //切换到游戏页面
+                            currentScence = GameScence.MainMenu;
+
+                            if (!isMuted)
+                            {
+                                //停止之前的结婚进行曲
+                                MediaPlayer.Stop();
+                                //播放结婚进行曲
+                                MediaPlayer.Play(music);
+                            }
+                            //按钮点击音效
+                            if (!isMuted)
+                            {
+                                click.Play();
+                            }
+                        }
+
+                    }
+                    //鼠标状态赋值给前鼠标状态
+                    //prevMouseState = mouseState;
+                    mouseCursorRectangle = new Rectangle();
+
+
+
                 }
-          
+
             }
-            else if (currentScence == GameScence.GameOver)
+
+            if (starting)
             {
-
-                //判断是否点击了离婚
-                if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && divorceRectangle.Contains(mouseState.X, mouseState.Y))
+                timeLastFrame = timeLastFrame + gameTime.ElapsedGameTime.Milliseconds;//图片切换后经过的时间（毫秒）
+                if (timeLastFrame > timePerFame)
                 {
-                    //停止切换图片
-                    starting = true;
-                    //切换到游戏页面
-                    currentScence = GameScence.GamePlaying;
-                    if (!isMuted)
+                    timeLastFrame = timeLastFrame - timePerFame;//将图片切换后经过的时间恢复到小于每秒切换时间，保证下面代码执行一次
+                    if (currentFrame >= wifeTextureList.Count - 1)
                     {
-                        //停止之前的结婚进行曲
-                        MediaPlayer.Stop();
-                        //播放结婚进行曲
-                        MediaPlayer.Play(music);
+                        currentFrame = 0;
                     }
-                    //按钮点击音效
-                    if (!isMuted)
+                    else
                     {
-                        click.Play();
+                        currentFrame += 1;
                     }
                 }
-                //判断是否点击了主菜单
-                if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && mainMenuRectangle.Contains(mouseState.X, mouseState.Y))
-                {
-                    //切换到游戏页面
-                    currentScence = GameScence.MainMenu;
-
-                    if (!isMuted)
-                    {
-                        //停止之前的结婚进行曲
-                        MediaPlayer.Stop();
-                        //播放结婚进行曲
-                        MediaPlayer.Play(music);
-                    }
-                    //按钮点击音效
-                    if (!isMuted)
-                    {
-                        click.Play();
-                    }
-                }
-
             }
-            //鼠标状态赋值给前鼠标状态
-            prevMouseState = mouseState;
+
+            ////获取当前鼠标状态
+            //MouseState mouseState = Mouse.GetState();
+            ////修改自定义鼠标位置的X，Y轴坐标为鼠标当前X,Y位置
+            //mouseCursorRectangle.X = mouseState.X;
+            //mouseCursorRectangle.Y = mouseState.Y;
+
+            ////判断当前场景是否是主菜单
+            //if (currentScence == GameScence.MainMenu)
+            //{
+            //    //判断是否点击了关于按钮
+            //    if ((mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && aboutRectangle.Contains(mouseState.X, mouseState.Y))||)
+            //    {
+            //        //将当前场景切换关于场景
+            //        currentScence = GameScence.About;
+            //        //按钮点击音效
+            //        if(!isMuted)
+            //        {
+            //            click.Play();
+            //        }
+            //    }
+            //    //判断是否点击关闭音效音乐按钮
+            //    if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && soundOnRectangle.Contains(mouseState.X, mouseState.Y))
+            //    {
+            //        isMuted =! isMuted;
+            //        MediaPlayer.IsMuted = isMuted;
+            //        //按钮点击音效
+            //        if (!isMuted)
+            //        {
+            //            click.Play();
+            //        }
+            //    }
+            //    //判断是否点击了开始游戏按钮
+            //    if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && playNormalRectangle.Contains(mouseState.X, mouseState.Y))
+            //    {
+            //        //跳转到游戏场景
+            //        currentScence = GameScence.GamePlaying;
+
+            //        starting = true;
+            //        //按钮点击音效
+            //        if (!isMuted)
+            //        {
+            //            click.Play();
+            //        }
+
+
+            //    }
+
+            //}
+
+            ////判断当前场景是否是游戏场景
+            //else if (currentScence == GameScence.GamePlaying)
+            //{
+            //    //判断是否点击了关于按钮
+            //    if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && backRectangle.Contains(mouseState.X, mouseState.Y))
+            //    {
+            //        //将当前场景切换到主菜单
+            //        currentScence = GameScence.MainMenu;
+            //        //按钮点击音效
+            //        if (!isMuted)
+            //        {
+            //            click.Play();
+            //        }
+
+            //    }
+
+            //    //判断是否点击了选老婆按钮
+            //    if (mouseState!=prevMouseState&& mouseState.LeftButton != ButtonState.Released && marryHerRectangle.Contains(mouseState.X, mouseState.Y))
+            //    {
+            //        //停止切换图片
+            //        starting = false;
+            //        //切换到游戏结束页面
+            //        currentScence = GameScence.GameOver;
+            //        if (!isMuted)
+            //        {
+            //            //停止之前的游戏音乐
+            //            MediaPlayer.Stop();
+            //            //播放结婚进行曲
+            //            MediaPlayer.Play(weddingMarch);
+            //        }
+            //        //按钮点击音效
+            //        if (!isMuted)
+            //        {
+            //            click.Play();
+            //        }
+
+            //    }
+
+            //    if (starting)
+            //    {
+            //        timeLastFrame = timeLastFrame + gameTime.ElapsedGameTime.Milliseconds;//图片切换后经过的时间（毫秒）
+            //        if (timeLastFrame > timePerFame)
+            //        {
+            //            timeLastFrame = timeLastFrame - timePerFame;//将图片切换后经过的时间恢复到小于每秒切换时间，保证下面代码执行一次
+            //            if (currentFrame >= wifeTextureList.Count - 1)
+            //            {
+            //                currentFrame = 0;
+            //            }
+            //            else
+            //            {
+            //                currentFrame += 1;
+            //            }
+            //        }
+            //    }
+
+            //    }
+
+            ////判断当前场景是否是关于
+            //else if(currentScence == GameScence.About)
+            //{
+            //    //判断是否点击了关于按钮
+            //    if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && backRectangle.Contains(mouseState.X, mouseState.Y))
+            //    {
+            //        //将当前场景切换到主菜单
+            //        currentScence = GameScence.MainMenu;
+            //        //按钮点击音效
+            //        if (!isMuted)
+            //        {
+            //            click.Play();
+            //        }
+            //    }
+
+            //}
+            //else if (currentScence == GameScence.GameOver)
+            //{
+
+            //    //判断是否点击了离婚
+            //    if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && divorceRectangle.Contains(mouseState.X, mouseState.Y))
+            //    {
+            //        //停止切换图片
+            //        starting = true;
+            //        //切换到游戏页面
+            //        currentScence = GameScence.GamePlaying;
+            //        if (!isMuted)
+            //        {
+            //            //停止之前的结婚进行曲
+            //            MediaPlayer.Stop();
+            //            //播放结婚进行曲
+            //            MediaPlayer.Play(music);
+            //        }
+            //        //按钮点击音效
+            //        if (!isMuted)
+            //        {
+            //            click.Play();
+            //        }
+            //    }
+            //    //判断是否点击了主菜单
+            //    if (mouseState != prevMouseState && mouseState.LeftButton != ButtonState.Released && mainMenuRectangle.Contains(mouseState.X, mouseState.Y))
+            //    {
+            //        //切换到游戏页面
+            //        currentScence = GameScence.MainMenu;
+
+            //        if (!isMuted)
+            //        {
+            //            //停止之前的结婚进行曲
+            //            MediaPlayer.Stop();
+            //            //播放结婚进行曲
+            //            MediaPlayer.Play(music);
+            //        }
+            //        //按钮点击音效
+            //        if (!isMuted)
+            //        {
+            //            click.Play();
+            //        }
+            //    }
+
+            //}
+            ////鼠标状态赋值给前鼠标状态
+            //prevMouseState = mouseState;
+
+
             base.Update(gameTime);
         }
 
