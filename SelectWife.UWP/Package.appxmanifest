@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="0a82f66e-1ca7-4580-ad57-1bae9f40cbda" Publisher="CN=chengcong" Version="1.0.0.0" />
+  <Identity Name="0a82f66e-1ca7-4580-ad57-1bae9f40cbda" Publisher="CN=chengcong" Version="1.0.1.0" />
   <mp:PhoneIdentity PhoneProductId="0a82f66e-1ca7-4580-ad57-1bae9f40cbda" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>SelectWife.UWP</DisplayName>
+    <DisplayName>选老婆</DisplayName>
     <PublisherDisplayName>chengcong</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
